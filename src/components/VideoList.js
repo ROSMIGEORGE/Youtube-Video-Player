@@ -1,6 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import { removeVideo,moveDown,moveUp } from '../actions';
+import ListItem from './ListItem';
 
 const VideoList = props => {
     const removeVideo = video => {
@@ -16,19 +17,13 @@ const VideoList = props => {
 
     const renderList = () => {
         return props.videoList.map(video=>{
-            console.log(props.selectedVideo,video)
-        return  <div className={`list-item ${props.selectedVideo == video?`highLight`:''}`} key={video}> 
-        <span className="material-icons arrow-icon-up icons" onClick={()=>moveUp(video)}>keyboard_arrow_up</span>
-        <span className="material-icons arrow-icon-down icons" onClick={()=>moveDown(video)}>keyboard_arrow_down</span>
-        Link:{video} 
-        <span className="material-icons close-icon icons" onClick={()=>removeVideo(video)}>close</span>
-        </div>
+        return  <ListItem key={video} selectedVideo={props.selectedVideo} video={video} moveUp={moveUp} moveDown={moveDown} removeVideo={removeVideo}/>
         });
     }
 
     return (
         <div className="video-list-wrapper">
-            <div>Play List</div>
+            <div className="title">PLAY LIST</div>
             {renderList()}
         </div>
     );
